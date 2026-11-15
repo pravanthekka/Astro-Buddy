@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,133 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="AstroBuddy is a calm health-monitoring software prototype concept for astronauts on long-duration space missions.">
 <title>AstroBuddy – A Calm Health Companion for Astronauts</title>
+<!-- AI-use note: parts of this code and wording were written with help from Claude (Anthropic). The concept, project direction and design decisions are the team's own. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --ink:#F1F2FF;
-  --muted:#A6AEC9;
-  --glass:rgba(13,16,32,.82);
-  --edge:rgba(160,145,255,.22);
-  --calm:#5EE0C4;
-  --watch:#FFC857;
-  --urgent:#FF716D;
-  --lav:#A58BFF;
-  --st:var(--calm);
-}
+:root{--ink:#F1F2FF;--muted:#A6AEC9;--glass:rgba(13,16,32,.82);--edge:rgba(160,145,255,.22);--calm:#5EE0C4;--watch:#FFC857;--urgent:#FF716D;--lav:#A58BFF;--st:var(--calm)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  color:var(--ink);
-  font-family:"Nunito","Avenir Next","Segoe UI",system-ui,sans-serif;
-  line-height:1.5;
-
-  background:
-    radial-gradient(2px 2px at 12% 18%,rgba(255,255,255,.9),transparent),
-    radial-gradient(1.5px 1.5px at 70% 12%,rgba(255,255,255,.8),transparent),
-    radial-gradient(2px 2px at 86% 40%,rgba(190,190,255,.8),transparent),
-    radial-gradient(1.5px 1.5px at 30% 70%,rgba(255,255,255,.7),transparent),
-    radial-gradient(2px 2px at 55% 88%,rgba(190,190,255,.7),transparent),
-    radial-gradient(1.5px 1.5px at 6% 82%,rgba(255,255,255,.8),transparent),
-    radial-gradient(650px 400px at 85% -10%,rgba(112,78,190,.19),transparent),
-    radial-gradient(550px 400px at -5% 100%,rgba(54,75,150,.15),transparent),
-    linear-gradient(145deg,#03040A,#090B17 55%,#070812);
-
-  background-attachment:fixed;
-}
-  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 50px}
-header{
-  display:flex;flex-wrap:wrap;align-items:center;
-  justify-content:space-between;gap:14px;margin-bottom:14px;
-}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Nunito","Avenir Next","Segoe UI",system-ui,sans-serif;line-height:1.5;
+background:radial-gradient(2px 2px at 12% 18%,rgba(255,255,255,.9),transparent),radial-gradient(1.5px 1.5px at 70% 12%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 86% 40%,rgba(190,190,255,.8),transparent),radial-gradient(1.5px 1.5px at 30% 70%,rgba(255,255,255,.7),transparent),radial-gradient(2px 2px at 55% 88%,rgba(190,190,255,.7),transparent),radial-gradient(1.5px 1.5px at 6% 82%,rgba(255,255,255,.8),transparent),radial-gradient(650px 400px at 85% -10%,rgba(112,78,190,.19),transparent),radial-gradient(550px 400px at -5% 100%,rgba(54,75,150,.15),transparent),linear-gradient(145deg,#03040A,#090B17 55%,#070812);background-attachment:fixed}
+.wrap{max-width:1100px;margin:0 auto;padding:22px 16px 50px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
 h1{font-size:1.9rem;font-weight:800;margin:0}
 h1 small{display:block;font-size:.95rem;font-weight:400;color:var(--muted)}
 h2{font-size:1.1rem;font-weight:800;margin:0 0 10px}
-h3{font-size:1rem;margin:16px 0 8px}
 a{color:var(--calm)}
 a:hover{color:#fff}
-.glass{
-  background:var(--glass);
-  border:1px solid var(--edge);
-  border-radius:20px;
-  padding:20px;
-  backdrop-filter:blur(12px);
-  box-shadow:0 8px 30px rgba(0,0,0,.25);
-  margin-bottom:16px;
-}rgin-bottom:16px;
-}
+.glass{background:var(--glass);border:1px solid var(--edge);border-radius:20px;padding:20px;backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(0,0,0,.25);margin-bottom:16px}
 .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start}
-button{
-  font:inherit;color:var(--ink);cursor:pointer;
-  border-radius:999px;border:1.5px solid var(--edge);
-  background:var(--glass);padding:8px 14px;
-}
+button{font:inherit;color:var(--ink);cursor:pointer;border-radius:999px;border:1.5px solid var(--edge);background:var(--glass);padding:8px 14px}
 button:hover{border-color:var(--lav)}
 button:focus-visible{outline:3px solid var(--lav);outline-offset:2px}
-button[aria-pressed="true"]{
-  background:var(--lav);color:#12163F;
-  border-color:var(--lav);font-weight:700;
-}
+button[aria-pressed="true"]{background:var(--lav);color:#12163F;border-color:var(--lav);font-weight:700}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.band{
-  display:flex;align-items:center;gap:8px;
-  color:var(--muted);font-size:.92rem;margin-bottom:14px;
-}
-.live{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--calm);box-shadow:0 0 0 0 var(--calm);
-  animation:pu 2s infinite;
-}
-@keyframes pu{
-  0%{box-shadow:0 0 0 0 rgba(94,224,196,.6)}
-  100%{box-shadow:0 0 0 12px rgba(94,224,196,0)}
-}
-.chip{
-  display:flex;align-items:center;gap:8px;padding:6px 12px;
-  border:1px solid var(--edge);border-radius:999px;font-size:.9rem;
-}
+.band{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.92rem;margin-bottom:14px}
+.live{width:10px;height:10px;border-radius:50%;background:var(--calm);box-shadow:0 0 0 0 var(--calm);animation:pu 2s infinite}
+@keyframes pu{0%{box-shadow:0 0 0 0 rgba(94,224,196,.6)}100%{box-shadow:0 0 0 12px rgba(94,224,196,0)}}
+.chip{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--edge);border-radius:999px;font-size:.9rem}
 .dot{width:12px;height:12px;border-radius:50%;flex:none}
 .hero{text-align:center;border-top:6px solid var(--st)}
-.ring{
-  width:150px;height:150px;border-radius:50%;
-  margin:6px auto 14px;display:grid;place-items:center;
-  font-weight:800;border:9px solid var(--st);
-  box-shadow:0 0 40px color-mix(in srgb,var(--st) 45%,transparent);
-  background:rgba(255,255,255,.05);transition:border-color .4s;
-}
+.ring{width:150px;height:150px;border-radius:50%;margin:6px auto 14px;display:grid;place-items:center;font-weight:800;border:9px solid var(--st);box-shadow:0 0 40px color-mix(in srgb,var(--st) 45%,transparent);background:rgba(255,255,255,.05);transition:border-color .4s}
 .ring.go2{animation:br 10s ease-in-out infinite}
-@keyframes br{
-  0%{transform:scale(.82)}
-  40%{transform:scale(1.1)}
-  100%{transform:scale(.82)}
-}
-@media(prefers-reduced-motion:reduce){
-  .ring.go2,.live{animation:none}
-}
+@keyframes br{0%{transform:scale(.82)}40%{transform:scale(1.1)}100%{transform:scale(.82)}}
+@media(prefers-reduced-motion:reduce){.ring.go2,.live{animation:none}}
 .who{font-size:.9rem;color:var(--muted)}
 .headline{font-size:1.35rem;font-weight:800;margin:4px 0 6px}
 .sub{color:var(--muted);margin:0 0 10px}
 .steps{text-align:left;padding-left:22px;margin:10px 0 0}
 .steps li{margin:6px 0}
 .esc{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
-.esc .primary{
-  background:var(--urgent);color:#2A0A06;
-  border-color:var(--urgent);font-weight:800;
-}
+.esc .primary{background:var(--urgent);color:#2A0A06;border-color:var(--urgent);font-weight:800}
 .toast{min-height:1.4em;margin-top:10px;font-weight:600;color:var(--calm)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.m{
-  border:1px solid var(--edge);
-  border-left:6px solid var(--calm);
-  border-radius:14px;
-  padding:10px 12px;
-  background:rgba(17,20,39,.85);
-  box-shadow:0 4px 16px rgba(0,0,0,.2);
-}
+.m{border:1px solid var(--edge);border-left:6px solid var(--calm);border-radius:14px;padding:10px 12px;background:rgba(17,20,39,.85);box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .m.l1{border-left-color:var(--watch)}
 .m.l2{border-left-color:var(--urgent)}
 .m b{display:block;font-size:1.3rem;line-height:1.2}
@@ -145,795 +61,285 @@ button[aria-pressed="true"]{
 .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;margin:8px 0}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lav),var(--calm))}
 .log{list-style:none;margin:0;padding:0}
-.log li{
-  display:flex;gap:10px;align-items:center;
-  padding:6px 0;border-bottom:1px solid var(--edge);font-size:.92rem;
-}
+.log li{display:flex;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--edge);font-size:.92rem}
 .foot{margin-top:10px;font-size:.85rem;color:var(--muted)}
 .sechead{margin:34px 0 4px;font-size:1.5rem;font-weight:800}
 .lead{color:var(--muted);margin:0 0 12px;max-width:75ch}
-.about{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:16px;margin-top:6px;
-}
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:6px}
 .about .glass{margin:0}
 .about h2{margin-bottom:8px}
 .about p,.about li{margin:6px 0}
 .about ul{padding-left:20px;margin:6px 0}
 .risk{width:100%;border-collapse:collapse;font-size:.92rem}
-.risk th,.risk td{
-  text-align:left;padding:6px 8px;
-  border-bottom:1px solid var(--edge);vertical-align:top;
-}
+.risk th,.risk td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--edge);vertical-align:top}
 .risk th{color:var(--muted);font-weight:600}
 .wide{grid-column:1/-1}
-.notice{
-  border:1px solid rgba(255,200,87,.4);
-  background:rgba(255,200,87,.08);
-  border-radius:12px;padding:12px 14px;
-  color:var(--ink);font-size:.9rem;
-}
 @media(max-width:820px){.layout{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
 <header>
-  <h1 id="app">
-    AstroBuddy
-    <small>Your health, explained calmly, with a next step every time.</small>
-  </h1>
+  <h1 id="app">AstroBuddy<small>Your health, explained calmly, with a next step every time.</small></h1>
   <div class="row" id="crew" role="group" aria-label="Choose crew member"></div>
 </header>
 
-<div class="band">
-  <span class="live"></span>
-  Simulated wearable and radiation-badge readings. No real sensors are connected.
-</div>
-
-<p style="margin:-4px 0 14px">
-  <a href="#about">Explore the AstroBuddy project</a>
-</p>
+<div class="band"><span class="live"></span>Simulated wearable and radiation-badge readings. No real sensors are connected.</div>
+<p style="margin:-4px 0 14px"><a href="#about">Explore the AstroBuddy project</a></p>
 
 <div class="layout">
   <section>
     <div class="glass hero" id="hero" aria-live="polite"></div>
-
-    <div class="glass">
-      <h2>What happened today</h2>
-      <ul class="log" id="log"></ul>
-    </div>
-
-    <div class="glass">
-      <h2>Demo controls</h2>
-      <p class="sub" style="margin-top:0">
-        Choose a simulated scenario to see how AstroBuddy responds.
-        These events do not come from real astronaut sensors.
-      </p>
-      <div class="row" id="sims"></div>
-    </div>
+    <div class="glass"><h2>What happened today</h2><ul class="log" id="log"></ul></div>
+    <div class="glass"><h2>Demo controls</h2>
+      <p class="sub" style="margin-top:0">Choose a simulated scenario to see how AstroBuddy responds. These events do not come from real astronaut sensors.</p>
+      <div class="row" id="sims"></div></div>
   </section>
-
   <section>
-    <div class="glass">
-      <h2>Simulated crew readings</h2>
-      <div class="grid" id="grid"></div>
-    </div>
-
+    <div class="glass"><h2>Simulated crew readings</h2><div class="grid" id="grid"></div></div>
     <div class="glass" id="cyc" hidden></div>
-
-    <div class="glass">
-      <h2>How AstroBuddy works</h2>
-      <div class="flow">
-        <span>Wearable band and dosimeter</span>
-        <i>→</i>
-        <span>Onboard computer</span>
-        <i>→</i>
-        <span>AstroBuddy</span>
-        <i>→</i>
-        <span>Crew guidance</span>
-        <i>→</i>
-        <span>Medical review pathway</span>
-      </div>
-      <p class="foot">
-        Conceptual workflow: real sensor integration and communication
-        with medical teams are future development steps.
-      </p>
-    </div>
+    <div class="glass"><h2>How AstroBuddy works</h2>
+      <div class="flow"><span>Wearable band and dosimeter</span><i>→</i><span>Onboard computer</span><i>→</i><span>AstroBuddy</span><i>→</i><span>Crew guidance</span><i>→</i><span>Medical review pathway</span></div>
+      <p class="foot">Conceptual workflow: real sensor integration and communication with medical teams are future development steps.</p></div>
   </section>
 </div>
 
 <h2 class="sechead" id="about">About AstroBuddy</h2>
-<p class="lead">
-  Team <b>The Sibling Circuit</b> · NASA Space Apps Challenge 2026
-  · Challenge: build health monitoring software for astronauts on long missions.
-  <br>
-  <b>Team members:</b> Pravanthekka GN and Pravarthanan GN.
-</p>
+<p class="lead">Team <b>The Sibling Circuit</b> · NASA Space Apps Challenge 2026 · Challenge: build health monitoring software for astronauts on long missions.<br><b>Team members:</b> Pravanthekka GN and Pravarthanan GN.</p>
 
 <div class="about">
 
-  <div class="glass">
-    <h2>What we built</h2>
-    <p>
-      AstroBuddy is a calm health-monitoring software concept for astronauts
-      on long-duration missions. It explores how wearable health indicators
-      and radiation readings could be presented in one easy-to-understand
-      dashboard.
-    </p>
-    <p>
-      When a reading moves outside an illustrative range, the prototype
-      explains the concern and presents possible next steps in plain language.
-      Its goal is to make health information easier to understand without
-      adding unnecessary stress.
-    </p>
-    <p>
-      The current website is a functional demonstration using simulated
-      readings and fictional crew members.
-    </p>
-  </div>
+<div class="glass"><h2>What we built</h2>
+<p>AstroBuddy is a calm health-monitoring software concept for astronauts on long-duration missions. It explores how wearable health indicators and radiation readings could be presented in one easy-to-understand dashboard.</p>
+<p>When a reading moves outside an illustrative range, the prototype explains the concern and presents possible next steps in plain language. Its goal is to make health information easier to understand without adding unnecessary stress.</p>
+<p>It is designed to sit on top of wearable sensing that already exists, such as the Canadian Space Agency’s Bio-Monitor smart shirt, and adds a calm guidance layer for the crew member. It also includes an optional, private cycle-tracker demo for crew members who menstruate.</p>
+<p>The current website is a functional demonstration using simulated readings and fictional crew members.</p></div>
 
-  <div class="glass">
-    <h2>The problem</h2>
-    <p>
-      During long-duration missions, astronauts operate far from Earth and
-      have limited access to immediate medical support. Spaceflight can
-      expose crew members to challenges such as radiation, isolation,
-      disrupted sleep and changes associated with living in microgravity.
-    </p>
-    <p>
-      Astronauts also have demanding responsibilities. A health-support
-      system should therefore make important information easy to understand
-      and help identify situations that may need medical review.
-    </p>
-  </div>
+<div class="glass"><h2>The problem</h2>
+<p>During long-duration missions, astronauts operate far from Earth and have limited access to immediate medical support. Spaceflight can expose crew members to challenges such as radiation, isolation, disrupted sleep and changes associated with living in microgravity.</p>
+<p>Astronauts also have demanding responsibilities. A health-support system should therefore make important information easy to understand and help identify situations that may need medical review.</p>
+<p>Women’s health deserves attention too. Most female astronauts currently suppress their periods on missions, but research on how long missions affect the menstrual cycle is limited, and some astronauts may prefer to keep menstruating on missions to the Moon and Mars.</p></div>
 
-  <div class="glass">
-    <h2>How it addresses the challenge</h2>
-    <p>
-      The concept brings several health indicators together in one dashboard.
-      The current prototype demonstrates the following areas:
-    </p>
-    <table class="risk">
-      <tr>
-        <th>Health area</th>
-        <th>Prototype feature</th>
-      </tr>
-      <tr>
-        <td>Cardiovascular health</td>
-        <td>Illustrative blood pressure and heart-rate readings</td>
-      </tr>
-      <tr>
-        <td>Oxygen levels</td>
-        <td>Simulated blood-oxygen readings and guidance</td>
-      </tr>
-      <tr>
-        <td>Blood glucose</td>
-        <td>Simulated glucose readings and suggested next steps</td>
-      </tr>
-      <tr>
-        <td>Radiation exposure</td>
-        <td>Sample daily dose readings and shelter guidance</td>
-      </tr>
-      <tr>
-        <td>Behavioural health</td>
-        <td>Stress estimate and a calm-breathing guide</td>
-      </tr>
-      <tr>
-        <td>Sleep and exercise</td>
-        <td>Sleep duration and strength-exercise tracking</td>
-      </tr>
-      <tr>
-        <td>Immune changes</td>
-        <td>Not yet included; identified as a future development area</td>
-      </tr>
-    </table>
-  </div>
+<div class="glass"><h2>How it addresses the challenge</h2>
+<p>The concept brings several health indicators together in one dashboard. The current prototype demonstrates the following areas:</p>
+<table class="risk">
+<tr><th>Health area</th><th>Prototype feature</th></tr>
+<tr><td>Cardiovascular health</td><td>Illustrative blood pressure and heart-rate readings</td></tr>
+<tr><td>Oxygen levels</td><td>Simulated blood-oxygen readings and guidance</td></tr>
+<tr><td>Blood glucose</td><td>Simulated glucose readings and suggested next steps</td></tr>
+<tr><td>Radiation exposure</td><td>Sample daily dose readings and shelter guidance</td></tr>
+<tr><td>Behavioural health</td><td>Stress estimate and a calm-breathing guide</td></tr>
+<tr><td>Sleep and exercise</td><td>Sleep duration and strength-exercise tracking</td></tr>
+<tr><td>Women’s health</td><td>Optional, private cycle-tracker demo using fictional data</td></tr>
+<tr><td>Immune changes</td><td>Not yet included; identified as a future development area</td></tr>
+</table></div>
 
-  <div class="glass">
-    <h2>Expected impact</h2>
-    <ul>
-      <li>
-        Presents multiple health indicators in one place, making them easier
-        to review.
-      </li>
-      <li>
-        Uses calm, plain-language messages instead of showing numbers alone.
-      </li>
-      <li>
-        Demonstrates how unusual readings could be flagged for medical review.
-      </li>
-      <li>
-        Explores a possible approach that could also be useful for people
-        working in remote environments on Earth.
-      </li>
-    </ul>
-    <p class="foot">
-      These are intended benefits of the concept, not outcomes established
-      through clinical testing.
-    </p>
-  </div>
+<div class="glass"><h2>Expected impact</h2>
+<ul>
+<li>Presents multiple health indicators in one place, making them easier to review.</li>
+<li>Uses calm, plain-language messages instead of showing numbers alone.</li>
+<li>Demonstrates how unusual readings could be flagged for medical review.</li>
+<li>Supports an inclusive approach to astronaut health, including optional menstrual-cycle tracking.</li>
+<li>Explores a possible approach that could also be useful for people working in remote environments on Earth.</li>
+</ul>
+<p class="foot">These are intended benefits of the concept, not outcomes established through clinical testing.</p></div>
 
-  <div class="glass">
-    <h2>What makes AstroBuddy different?</h2>
-    <ul>
-      <li>
-        <b>Calm by design.</b> It pairs a status message with suggested
-        next steps.
-      </li>
-      <li>
-        <b>One dashboard.</b> It brings several simulated health indicators
-        together for easier review.
-      </li>
-      <li>
-        <b>Quiet when steady.</b> It highlights readings that may need
-        attention rather than overwhelming the user with constant messages.
-      </li>
-      <li>
-        <b>Breathing support.</b> A simple breathing guide is included
-        as a demonstration feature.
-      </li>
-    </ul>
-  </div>
+<div class="glass"><h2>What makes AstroBuddy different?</h2>
+<ul>
+<li><b>Calm by design.</b> It pairs a status message with suggested next steps.</li>
+<li><b>One dashboard.</b> It brings several simulated health indicators together for easier review.</li>
+<li><b>Quiet when steady.</b> It highlights readings that may need attention rather than overwhelming the user with constant messages.</li>
+<li><b>Breathing support.</b> A simple breathing guide is included as a demonstration feature.</li>
+</ul></div>
 
-  <div class="glass">
-    <h2>Prototype testing</h2>
-    <p>
-      We explored the prototype using five simulated health scenarios:
-      a normal day, low blood pressure, breathing difficulty, low glucose
-      and elevated radiation exposure.
-    </p>
-    <p>
-      For each scenario, we checked how the dashboard changes its status,
-      communicates the concern and presents suggested next steps.
-    </p>
-    <p>
-      This is an initial functional demonstration, not a clinical trial
-      or astronaut user study. Further usability testing and expert review
-      would be needed.
-    </p>
-  </div>
+<div class="glass"><h2>Prototype testing</h2>
+<p>We explored the prototype using five simulated health scenarios: a normal day, low blood pressure, breathing difficulty, low glucose and elevated radiation exposure.</p>
+<p>For each scenario, we checked how the dashboard changes its status, communicates the concern and presents suggested next steps.</p>
+<p>This is an initial functional demonstration, not a clinical trial or astronaut user study. Further usability testing and expert review would be needed.</p></div>
 
-  <div class="glass">
-    <h2>Validity: sources and limits</h2>
+<div class="glass"><h2>Validity: sources and limits</h2>
+<p><b>NASA data and resources used</b></p>
+<ul>
+<li><a href="https://www.nasa.gov/missions/station/iss-research/wearable-tech-for-space-station-research/" target="_blank" rel="noopener noreferrer">Wearable Tech for Space Station Research</a> — NASA (2024). Background reading on wearable technology and health monitoring research in space.</li>
+<li><a href="https://www.nasa.gov/hrp/hazards/" target="_blank" rel="noopener noreferrer">Human Spaceflight Hazards</a> — NASA Human Research Program. Background reading on health hazards associated with human spaceflight.</li>
+<li><a href="https://www.nasa.gov/hrp/risks/" target="_blank" rel="noopener noreferrer">Risks of Human Spaceflight</a> — NASA Human Research Program. Further background on risks to astronaut health during space missions.</li>
+<li><a href="https://osdr.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA Open Science Data Repository</a> — Background reading on space life-science data.</li>
+</ul>
+<p><b>Space agency partner and other resources</b></p>
+<ul>
+<li><a href="https://www.asc-csa.gc.ca/eng/multimedia/search/image/watch/8166" target="_blank" rel="noopener noreferrer">Bio-Monitor: Canada’s Smart Shirt for Space</a> — Canadian Space Agency. Existing wearable that continuously records astronaut vital signs.</li>
+<li><a href="https://www.space.com/43228-astroskin-smart-space-jersey-for-astronauts.html" target="_blank" rel="noopener noreferrer">Astronaut Suits Up in ‘Smart’ Astroskin Jersey on Space Station</a> — Space.com. Background on the Bio-Monitor system.</li>
+<li><a href="https://arxiv.org/pdf/2506.20718" target="_blank" rel="noopener noreferrer">One Giant Leap for Womankind: First Menstrual Cups Tested in Space Flight Conditions</a> — AstroCup research team. Background on menstrual health on long missions.</li>
+<li><a href="https://www.space.com/space-exploration/human-spaceflight/menstruation-in-space-will-be-studied-for-1st-time-with-operation-period/amp/" target="_blank" rel="noopener noreferrer">Menstruation in space will be studied for 1st time with ‘Operation Period’</a> — Space.com. Background on gaps in menstrual-health data in spaceflight.</li>
+<li>Nunito typeface — Google Fonts (open font licence).</li>
+</ul>
+<p><b>Honest limits</b></p>
+<ul>
+<li>All readings are simulated, and the crew are fictional.</li>
+<li>Ranges are illustrative. A real system would require medically validated thresholds, appropriate sensor selection and clinical review.</li>
+<li>Some signals, such as cuffless blood pressure, are difficult to measure reliably on the wrist today. A real system would need suitable, validated sensors for each measurement.</li>
+<li>The cycle tracker uses fictional sample data and gives no medical advice.</li>
+<li>This is decision support, not a doctor. Serious or unclear signs would need assessment by qualified medical personnel.</li>
+<li>The alert and message buttons are demonstrations only. They do not send real notifications to a medical officer, flight surgeon or Earth.</li>
+</ul></div>
 
-    <p><b>NASA data and resources used</b></p>
-    <ul>
-      <li>
-        <a href="https://www.nasa.gov/missions/station/iss-research/wearable-tech-for-space-station-research/"
-           target="_blank" rel="noopener noreferrer">
-          Wearable Tech for Space Station Research
-        </a>
-        — NASA (2024). Background reading on wearable technology and
-        health monitoring research in space.
-      </li>
-      <li>
-        <a href="https://www.nasa.gov/hrp/hazards/"
-           target="_blank" rel="noopener noreferrer">
-          Human Spaceflight Hazards
-        </a>
-        — NASA Human Research Program. Background reading on health
-        hazards associated with human spaceflight.
-      </li>
-      <li>
-        <a href="https://www.nasa.gov/hrp/risks/"
-           target="_blank" rel="noopener noreferrer">
-          Risks of Human Spaceflight
-        </a>
-        — NASA Human Research Program. Further background on risks
-        to astronaut health during space missions.
-      </li>
-    </ul>
+<div class="glass"><h2>Future possibilities</h2>
+<ul>
+<li>Explore integration with suitable wearable sensors and radiation monitoring devices.</li>
+<li>Study individual health baselines and long-term trends.</li>
+<li>Investigate additional indicators, including immune-related changes.</li>
+<li>Support astronauts’ choices on menstrual health, whether they track their cycle or suppress it.</li>
+<li>Develop a secure communication pathway for medical review.</li>
+<li>Seek feedback from medical professionals and conduct usability testing before considering real-world use.</li>
+</ul></div>
 
-    <p><b>Honest limits</b></p>
-    <ul>
-      <li>All readings are simulated, and the crew are fictional.</li>
-      <li>
-        Ranges are illustrative. A real system would require medically
-        validated thresholds, appropriate sensor selection and clinical review.
-      </li>
-      <li>
-        Some signals, such as cuffless blood pressure, are difficult to
-        measure reliably on the wrist today. A real system would need
-        suitable, validated sensors for each measurement.
-      </li>
-      <li>
-        This is decision support, not a doctor. Serious or unclear signs
-        would need assessment by qualified medical personnel.
-      </li>
-      <li>
-        The alert and message buttons are demonstrations only. They do not
-        send real notifications to a medical officer, flight surgeon or Earth.
-      </li>
-    </ul>
-  </div>
-
-  <div class="glass">
-    <h2>Future possibilities</h2>
-    <ul>
-      <li>
-        Explore integration with suitable wearable sensors and radiation
-        monitoring devices.
-      </li>
-      <li>
-        Study individual health baselines and long-term trends.
-      </li>
-      <li>
-        Investigate additional indicators, including immune-related changes.
-      </li>
-      <li>
-        Develop a secure communication pathway for medical review.
-      </li>
-      <li>
-        Seek feedback from medical professionals and conduct usability
-        testing before considering real-world use.
-      </li>
-    </ul>
-  </div>
-
-  <div class="glass wide">
-    <h2>Tools and AI use</h2>
-    <p>
-      AstroBuddy is built as a web prototype using HTML, CSS and JavaScript.
-      The project is hosted through GitHub Pages.
-    </p>
-    <p>
-      The concept, project direction and design decisions were developed
-      by The Sibling Circuit.
-    </p>
-    <p>
-      This is an independent student project and is not an official NASA
-      product or medical device.
-    </p>
-  </div>
+<div class="glass wide"><h2>Tools and AI use</h2>
+<p>AstroBuddy is built as a web prototype using HTML, CSS and JavaScript. The project is hosted through GitHub Pages.</p>
+<p>The concept, project direction and design decisions were developed by The Sibling Circuit. Parts of the website code and wording were written with help from Claude, an AI assistant made by Anthropic. No NASA logos or branding are used, and no images of people appear on this page.</p>
+<p>This is an independent student project and is not an official NASA product or medical device.</p></div>
 
 </div>
 
-<p class="foot">
-  AstroBuddy is a prototype created for the NASA Space Apps Challenge 2026.
-  All displayed readings are simulated and all crew members are fictional.
-  The thresholds and recommendations are illustrative and are not validated
-  medical guidance. The prototype does not connect to real sensors or send
-  real alerts. It is a demonstration of a possible decision-support concept,
-  not a substitute for professional medical assessment.
-</p>
+<p class="foot">AstroBuddy is a prototype created for the NASA Space Apps Challenge 2026. All displayed readings are simulated and all crew members are fictional. The thresholds and recommendations are illustrative and are not validated medical guidance. The prototype does not connect to real sensors or send real alerts. It is a demonstration of a possible decision-support concept, not a substitute for professional medical assessment.</p>
 
 </div>
 
 <script>
 // ===== ASTROBUDDY PROTOTYPE LOGIC =====
-
-// Fictional crew and illustrative baseline readings.
-const BASE={
-  sbp:118,dbp:76,hr:64,spo2:98,glu:92,
-  sleep:7,stress:3,ex:110,rad:.6
-};
-
+const BASE={sbp:118,dbp:76,hr:64,spo2:98,glu:92,sleep:7,stress:3,ex:110,rad:.6};
 const CREW=[
-  {n:"Crew member A",role:"Commander",b:{...BASE}},
-  {
-    n:"Crew member B",role:"Flight engineer",
-    cycle:{day:21,len:28},
-    b:{...BASE,sbp:110,dbp:70,hr:68,glu:88,sleep:6.8,ex:100}
-  },
-  {
-    n:"Crew member C",role:"Mission specialist",
-    b:{...BASE,sbp:122,dbp:78,hr:60,glu:96,sleep:7.2,ex:120}
-  }
-].map(c=>({
-  ...c,
-  cur:{...c.b},
-  tgt:{...c.b},
-  hist:{sbp:[],hr:[],spo2:[],glu:[]},
-  sig:"0|",
-  log:[]
-}));
+ {n:"Crew member A",role:"Commander",b:{...BASE}},
+ {n:"Crew member B",role:"Flight engineer",cycle:{day:21,len:28},b:{...BASE,sbp:110,dbp:70,hr:68,glu:88,sleep:6.8,ex:100}},
+ {n:"Crew member C",role:"Mission specialist",b:{...BASE,sbp:122,dbp:78,hr:60,glu:96,sleep:7.2,ex:120}}
+].map(c=>({...c,cur:{...c.b},tgt:{...c.b},hist:{sbp:[],hr:[],spo2:[],glu:[]},sig:"0|",log:[]}));
 
-// Demonstration scenarios.
 const SC={
-  "Normal day":{},
-  "Low blood pressure":{sbp:84,dbp:54,hr:94,sleep:5.5},
-  "Breathing difficulty":{spo2:91,hr:110,stress:6},
-  "Low glucose":{glu:62,hr:88},
-  "Radiation alert":{rad:1.9,stress:7,sleep:5}
+ "Normal day":{},
+ "Low blood pressure":{sbp:84,dbp:54,hr:94,sleep:5.5},
+ "Breathing difficulty":{spo2:91,hr:110,stress:6},
+ "Low glucose":{glu:62,hr:88},
+ "Radiation alert":{rad:1.9,stress:7,sleep:5}
 };
 
-// Illustrative indicators and demonstration thresholds.
-const M=[ 
-{
-  l:"Blood pressure",u:"mmHg",sk:"sbp",
-  v:v=>v.sbp+"/"+v.dbp,
-  lv:v=>(v.sbp>180||v.dbp>120)?2:
-        (v.sbp>=140||v.dbp>=90)?1:
-        (v.sbp<80||v.dbp<50)?2:
-        (v.sbp<90||v.dbp<60)?1:0,
-  h:v=>(v.sbp>180||v.dbp>120)
-    ?"Your blood pressure is extremely high. This needs immediate medical review."
-    :(v.sbp>=140||v.dbp>=90)
-    ?"Your blood pressure is higher than expected. Pause and recheck."
-    :"Your blood pressure is lower than usual. Take a moment to rest.",
-  s:v=>(v.sbp>180||v.dbp>120)
-    ?[
-      "Pause activity and rest in a safe position.",
-      "Repeat the measurement after at least one minute using a suitable validated device.",
-      "If the reading remains this high, alert the crew medical officer immediately.",
-      "Follow the onboard emergency protocol if concerning symptoms occur."
-    ]
-    :(v.sbp>=140||v.dbp>=90)
-    ?[
-      "Pause strenuous activity and rest safely.",
-      "Repeat the measurement and monitor the result.",
-      "Seek medical guidance if the reading remains high."
-    ]
-    :[
-      "Stop and rest in a comfortable position.",
-      "Follow onboard hydration and medical guidance.",
-      "Recheck the reading in 10 minutes."
-    ]
-},
-
-  {
-    l:"Heart rate",u:"beats/min",sk:"hr",
-    v:v=>v.hr,
-    lv:v=>(v.hr>130||v.hr<40)?2:(v.hr>105||v.hr<50)?1:0,
-    h:()=>"Your heart rate is different from the illustrative baseline. Take a moment to pause.",
-    s:()=>[
-      "Pause exercise or demanding tasks.",
-      "Try slow breathing with the guide.",
-      "A real system would require appropriate medical assessment."
-    ]
-  },
-  {
-    l:"Blood oxygen",u:"%",
-    sk:"spo2",
-    v:v=>v.spo2,
-    lv:v=>v.spo2<90?2:v.spo2<95?1:0,
-    h:v=>v.spo2<92
-      ?"Your oxygen reading is low in this simulation. This needs attention."
-      :"Your oxygen reading is below the illustrative range. Let's check it.",
-    s:()=>[
-      "Stop exertion and rest.",
-      "Check sensor fit and measurement quality.",
-      "A real system would require assessment of the cabin environment.",
-      "If a low reading persists or breathing feels difficult, seek medical review."
-    ]
-  },
-  {
-    l:"Blood glucose",u:"mg/dL",
-    v:v=>v.glu,
-    lv:v=>(v.glu<54||v.glu>250)?2:
-          (v.glu<70||v.glu>180)?1:0,
-    h:v=>v.glu<70
-      ?"Your simulated blood glucose reading is low."
-      :"Your simulated blood glucose reading is high.",
-    s:v=>v.glu<70
-      ?[
-        "Follow the appropriate onboard medical checklist.",
-        "A real response would depend on medical guidance.",
-        "Recheck the reading using a validated measurement method."
-      ]
-      :[
-        "Follow the appropriate onboard medical checklist.",
-        "Consider measurement accuracy and relevant context.",
-        "Seek medical review if the reading remains unusual."
-      ]
-  },
-  {
-    l:"Sleep",u:"hours, last night",
-    v:v=>v.sleep.toFixed(1),
-    lv:v=>v.sleep<4?2:v.sleep<6?1:0,
-    h:()=>"Your simulated sleep duration is lower than the illustrative target.",
-    s:()=>[
-      "Protect your next sleep period.",
-      "Consider a quieter and darker rest environment."
-    ]
-  },
-  {
-    l:"Radiation today",u:"mSv (sample)",
-    v:v=>v.rad.toFixed(2),
-    lv:v=>v.rad>2?2:v.rad>1?1:0,
-    h:()=>"The sample radiation reading is higher than the illustrative baseline.",
-    s:()=>[
-      "Follow official mission radiation-safety instructions.",
-      "Use designated shielding procedures when directed.",
-      "A real system would use validated dosimeter data and mission limits."
-    ]
-  },
-  {
-    l:"Stress estimate",u:"out of 10",
-    v:v=>v.stress,
-    lv:v=>v.stress>=9?2:v.stress>=6?1:0,
-    h:()=>"Your simulated stress estimate is elevated. Take a moment for yourself.",
-    s:()=>[
-      "Take a short break if possible.",
-      "Try two minutes of calm breathing.",
-      "Consider talking with a crewmate or support professional."
-    ]
-  },
-  {
-    l:"Strength exercise",u:"min today",
-    v:v=>v.ex,
-    lv:v=>v.ex<30?2:v.ex<60?1:0,
-    h:()=>"Your recorded exercise duration is below the illustrative target.",
-    s:()=>[
-      "Review your planned exercise schedule.",
-      "Follow the mission's approved exercise programme."
-    ]
-  }
+const M=[
+ {l:"Blood pressure",u:"mmHg",sk:"sbp",v:v=>v.sbp+"/"+v.dbp,
+  lv:v=>(v.sbp>180||v.dbp>120)?2:(v.sbp>=140||v.dbp>=90)?1:(v.sbp<80||v.dbp<50)?2:(v.sbp<90||v.dbp<60)?1:0,
+  h:v=>(v.sbp>180||v.dbp>120)?"Your blood pressure is extremely high. This needs immediate medical review.":(v.sbp>=140||v.dbp>=90)?"Your blood pressure is higher than expected. Pause and recheck.":"Your blood pressure is lower than usual. Take a moment to rest.",
+  s:v=>(v.sbp>180||v.dbp>120)?["Pause activity and rest in a safe position.","Repeat the measurement after at least one minute using a suitable validated device.","If the reading remains this high, alert the crew medical officer immediately.","Follow the onboard emergency protocol if concerning symptoms occur."]:(v.sbp>=140||v.dbp>=90)?["Pause strenuous activity and rest safely.","Repeat the measurement and monitor the result.","Seek medical guidance if the reading remains high."]:["Stop and rest in a comfortable position.","Follow onboard hydration and medical guidance.","Recheck the reading in 10 minutes."]},
+ {l:"Heart rate",u:"beats/min",sk:"hr",v:v=>v.hr,lv:v=>(v.hr>130||v.hr<40)?2:(v.hr>105||v.hr<50)?1:0,
+  h:()=>"Your heart rate is different from the illustrative baseline. Take a moment to pause.",
+  s:()=>["Pause exercise or demanding tasks.","Try slow breathing with the guide.","A real system would require appropriate medical assessment."]},
+ {l:"Blood oxygen",u:"%",sk:"spo2",v:v=>v.spo2,lv:v=>v.spo2<90?2:v.spo2<95?1:0,
+  h:v=>v.spo2<92?"Your oxygen reading is low in this simulation. This needs attention.":"Your oxygen reading is below the illustrative range. Let’s check it.",
+  s:()=>["Stop exertion and rest.","Check sensor fit and measurement quality.","A real system would require assessment of the cabin environment.","If a low reading persists or breathing feels difficult, seek medical review."]},
+ {l:"Blood glucose",u:"mg/dL",v:v=>v.glu,lv:v=>(v.glu<54||v.glu>250)?2:(v.glu<70||v.glu>180)?1:0,
+  h:v=>v.glu<70?"Your simulated blood glucose reading is low.":"Your simulated blood glucose reading is high.",
+  s:v=>v.glu<70?["Follow the appropriate onboard medical checklist.","A real response would depend on medical guidance.","Recheck the reading using a validated measurement method."]:["Follow the appropriate onboard medical checklist.","Consider measurement accuracy and relevant context.","Seek medical review if the reading remains unusual."]},
+ {l:"Sleep",u:"hours, last night",v:v=>v.sleep.toFixed(1),lv:v=>v.sleep<4?2:v.sleep<6?1:0,
+  h:()=>"Your simulated sleep duration is lower than the illustrative target.",
+  s:()=>["Protect your next sleep period.","Consider a quieter and darker rest environment."]},
+ {l:"Radiation today",u:"mSv (sample)",v:v=>v.rad.toFixed(2),lv:v=>v.rad>2?2:v.rad>1?1:0,
+  h:()=>"The sample radiation reading is higher than the illustrative baseline.",
+  s:()=>["Follow official mission radiation-safety instructions.","Use designated shielding procedures when directed.","A real system would use validated dosimeter data and mission limits."]},
+ {l:"Stress estimate",u:"out of 10",v:v=>v.stress,lv:v=>v.stress>=9?2:v.stress>=6?1:0,
+  h:()=>"Your simulated stress estimate is elevated. Take a moment for yourself.",
+  s:()=>["Take a short break if possible.","Try two minutes of calm breathing.","Consider talking with a crewmate or support professional."]},
+ {l:"Strength exercise",u:"min today",v:v=>v.ex,lv:v=>v.ex<30?2:v.ex<60?1:0,
+  h:()=>"Your recorded exercise duration is below the illustrative target.",
+  s:()=>["Review your planned exercise schedule.","Follow the mission’s approved exercise programme."]}
 ];
 
-// Helpers and state.
 const $=id=>document.getElementById(id);
 const COL=["var(--calm)","var(--watch)","var(--urgent)"];
 const LAB=["All steady","Keep an eye","Review needed"];
-const NOISE={
-  sbp:1.2,dbp:.8,hr:1.5,spo2:.25,glu:1.5,
-  stress:.1,rad:.004
-};
-let ci=0;
-let breathing=false;
-let bt=null;
+const NOISE={sbp:1.2,dbp:.8,hr:1.5,spo2:.25,glu:1.5,stress:.1,rad:.004};
+let ci=0,breathing=false,bt=null;
 
-// Simulated telemetry updates.
 function tick(){
   CREW.forEach(c=>{
     for(const k in c.cur){
-      if(k==="sleep"||k==="ex"){
-        c.cur[k]=c.tgt[k];
-        continue;
-      }
-      c.cur[k]+=(c.tgt[k]-c.cur[k])*.25+
-        (Math.random()-.5)*2*(NOISE[k]||0);
+      if(k==="sleep"||k==="ex"){c.cur[k]=c.tgt[k];continue}
+      c.cur[k]+=(c.tgt[k]-c.cur[k])*.25+(Math.random()-.5)*2*(NOISE[k]||0);
     }
-
-    c.r={
-      sbp:Math.round(c.cur.sbp),
-      dbp:Math.round(c.cur.dbp),
-      hr:Math.round(c.cur.hr),
-      spo2:Math.min(100,Math.round(c.cur.spo2)),
-      glu:Math.round(c.cur.glu),
-      sleep:c.cur.sleep,
-      ex:Math.round(c.cur.ex),
-      stress:Math.max(1,Math.round(c.cur.stress)),
-      rad:c.cur.rad
-    };
-
-    for(const k in c.hist){
-      c.hist[k].push(c.r[k]);
-      if(c.hist[k].length>40)c.hist[k].shift();
-    }
-
+    c.r={sbp:Math.round(c.cur.sbp),dbp:Math.round(c.cur.dbp),hr:Math.round(c.cur.hr),spo2:Math.min(100,Math.round(c.cur.spo2)),glu:Math.round(c.cur.glu),sleep:c.cur.sleep,ex:Math.round(c.cur.ex),stress:Math.max(1,Math.round(c.cur.stress)),rad:c.cur.rad};
+    for(const k in c.hist){c.hist[k].push(c.r[k]);if(c.hist[k].length>40)c.hist[k].shift()}
     c.res=M.map(m=>({m,lv:m.lv(c.r)}));
     c.top=Math.max(...c.res.map(r=>r.lv));
-    c.flag=c.res
-      .filter(r=>r.lv>0)
-      .sort((a,b)=>b.lv-a.lv);
-
+    c.flag=c.res.filter(r=>r.lv>0).sort((a,b)=>b.lv-a.lv);
     const sig=c.top+"|"+c.flag.map(r=>r.m.l).join(",");
-
     if(sig!==c.sig){
       const first=c.sig==="0|"&&c.log.length===0&&c.top===0;
       c.sig=sig;
-
       if(!first){
-        c.log.unshift({
-          t:c.top,
-          w:new Date().toLocaleTimeString([],{
-            hour:"2-digit",minute:"2-digit",second:"2-digit"
-          }),
-          x:c.top===0
-            ?"Back to steady"
-            :c.flag[0].m.l+
-              (c.top===2
-                ?": review needed (simulated alert; no message sent)."
-                :": worth watching. Guidance shown.")
-        });
-
+        c.log.unshift({t:c.top,w:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"}),
+          x:c.top===0?"Back to steady":c.flag[0].m.l+(c.top===2?": review needed (simulated alert; no message sent).":": worth watching. Guidance shown.")});
         c.log=c.log.slice(0,6);
         if(c===CREW[ci])hero();
       }
     }
   });
-
   live();
 }
 
-// Small trend-line drawing.
 function spark(a,col){
   if(!a||a.length<2)return "";
-  const mn=Math.min(...a);
-  const mx=Math.max(...a);
-  const d=mx-mn||1;
-  const p=a.map((y,i)=>
-    (i/(a.length-1)*100).toFixed(1)+","+
-    (26-(y-mn)/d*24).toFixed(1)
-  ).join(" ");
-
-  return `<svg viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
-    <polyline points="${p}" fill="none" stroke="${col}"
-    stroke-width="2" stroke-linejoin="round"/>
-  </svg>`;
+  const mn=Math.min(...a),mx=Math.max(...a),d=mx-mn||1;
+  const p=a.map((y,i)=>(i/(a.length-1)*100).toFixed(1)+","+(26-(y-mn)/d*24).toFixed(1)).join(" ");
+  return `<svg viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"><polyline points="${p}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/></svg>`;
 }
 
-// Update dashboard readings and event log.
 function live(){
   const c=CREW[ci];
   document.documentElement.style.setProperty("--st",COL[c.top]);
-
-  $("grid").innerHTML=c.res.map(r=>`
-    <div class="m l${r.lv}">
-      <span class="n">${r.m.l}</span>
-      <b>${r.m.v(c.r)}</b>
-      <span class="n">${r.m.u}</span>
-      <div class="s">${["Steady","Watch","Review needed"][r.lv]}</div>
-      ${r.m.sk?spark(c.hist[r.m.sk],COL[r.lv]):""}
-    </div>
-  `).join("");
-
-  const cs=CREW.map((x,i)=>`
-    <button data-i="${i}" aria-pressed="${i==ci}" class="chip">
-      <span class="dot" style="background:${COL[x.top||0]}"></span>
-      ${x.n}
-    </button>
-  `).join("");
-
-  if(cs!==live.cs){
-    live.cs=cs;
-    $("crew").innerHTML=cs;
-  }
-
-  $("log").innerHTML=c.log.length
-    ?c.log.map(x=>`
-      <li>
-        <span class="dot" style="background:${COL[x.t]}"></span>
-        <span style="color:var(--muted)">${x.w}</span>
-        <span>${x.x}</span>
-      </li>
-    `).join("")
-    :`<li style="color:var(--muted)">Quiet so far. The simulated readings are steady.</li>`;
-
+  $("grid").innerHTML=c.res.map(r=>`<div class="m l${r.lv}"><span class="n">${r.m.l}</span><b>${r.m.v(c.r)}</b><span class="n">${r.m.u}</span><div class="s">${["Steady","Watch","Review needed"][r.lv]}</div>${r.m.sk?spark(c.hist[r.m.sk],COL[r.lv]):""}</div>`).join("");
+  const cs=CREW.map((x,i)=>`<button data-i="${i}" aria-pressed="${i==ci}" class="chip"><span class="dot" style="background:${COL[x.top||0]}"></span>${x.n}</button>`).join("");
+  if(cs!==live.cs){live.cs=cs;$("crew").innerHTML=cs}
+  $("log").innerHTML=c.log.length?c.log.map(x=>`<li><span class="dot" style="background:${COL[x.t]}"></span><span style="color:var(--muted)">${x.w}</span><span>${x.x}</span></li>`).join(""):`<li style="color:var(--muted)">Quiet so far. The simulated readings are steady.</li>`;
   const r=$("ring");
   if(r&&!breathing)r.textContent=LAB[c.top];
 }
 
-// Main status and suggested guidance.
 function hero(){
-  const c=CREW[ci];
-  const v=c.r;
-  const top=c.top;
-  const f=c.flag;
-
+  const c=CREW[ci],v=c.r,top=c.top,f=c.flag;
   let head,sub,steps="";
-
-  if(!f.length){
-    head="All steady. Nice work.";
-    sub="The simulated readings are within their illustrative ranges.";
-  }else{
+  if(!f.length){head="All steady. Nice work.";sub="The simulated readings are within their illustrative ranges."}
+  else{
     head=f[0].m.h(v);
-    sub=top==2
-      ?"This simulated scenario needs medical review. No real alert has been sent."
-      :"This reading is worth watching. Review the suggested steps.";
-
-    steps="<ol class='steps'>"+
-      [...new Set(f.slice(0,2).flatMap(r=>r.m.s(v)))]
-        .map(s=>`<li>${s}</li>`).join("")+
-      "</ol>";
+    sub=top==2?"This simulated scenario needs medical review. No real alert has been sent.":"This reading is worth watching. Review the suggested steps.";
+    steps="<ol class='steps'>"+[...new Set(f.slice(0,2).flatMap(r=>r.m.s(v)))].map(s=>`<li>${s}</li>`).join("")+"</ol>";
   }
-
-  breathing=false;
-  clearInterval(bt);
-
-  $("hero").innerHTML=`
-    <div class="who">${c.n}, ${c.role}</div>
-    <div class="ring" id="ring">${LAB[top]}</div>
-    <div class="headline">${head}</div>
-    <p class="sub">${sub}</p>
-    ${steps}
-    <div class="esc">
-      <button type="button" id="br">Start calm breathing</button>
-      <button type="button" class="${top==2?"primary":""}" id="e1">
-        Alert medical officer
-      </button>
-      <button type="button" id="e2">Message flight surgeon</button>
-    </div>
-    <div class="toast" id="toast" aria-live="polite"></div>
-  `;
-
+  breathing=false;clearInterval(bt);
+  $("hero").innerHTML=`<div class="who">${c.n}, ${c.role}</div><div class="ring" id="ring">${LAB[top]}</div><div class="headline">${head}</div><p class="sub">${sub}</p>${steps}<div class="esc"><button type="button" id="br">Start calm breathing</button><button type="button" class="${top==2?"primary":""}" id="e1">Alert medical officer</button><button type="button" id="e2">Message flight surgeon</button></div><div class="toast" id="toast" aria-live="polite"></div>`;
   $("br").onclick=toggleBreath;
-
-  $("e1").onclick=()=>{
-    $("toast").textContent=
-      "Demo only: this button does not send a real alert.";
-  };
-
-  $("e2").onclick=()=>{
-    $("toast").textContent=
-      "Demo only: no message is sent to Earth or a flight surgeon.";
-  };
+  $("e1").onclick=()=>{$("toast").textContent="Demo only: this button does not send a real alert."};
+  $("e2").onclick=()=>{$("toast").textContent="Demo only: no message is sent to Earth or a flight surgeon."};
 }
 
-// Optional illustrative cycle tracker for one fictional crew profile.
 function cycle(){
-  const c=CREW[ci].cycle;
-  const cy=$("cyc");
-
-  if(!c){
-    cy.hidden=true;
-    return;
-  }
-
+  const c=CREW[ci].cycle,cy=$("cyc");
+  if(!c){cy.hidden=true;return}
   cy.hidden=false;
-  cy.innerHTML=`
-    <h2>Cycle tracker – illustrative demo</h2>
-    <div>Day ${c.day} of ${c.len}. Next period estimate: about ${c.len-c.day} days.</div>
-    <div class="bar" aria-hidden="true">
-      <i style="width:${c.day/c.len*100}%"></i>
-    </div>
-    <p class="sub" style="margin:0">
-      This is fictional sample information to demonstrate an optional
-      tracking feature. It is not real personal or medical data.
-    </p>
-  `;
+  cy.innerHTML=`<h2>Cycle tracker – optional demo</h2><div>Day ${c.day} of ${c.len}. Next period estimate: about ${c.len-c.day} days.</div><div class="bar" aria-hidden="true"><i style="width:${c.day/c.len*100}%"></i></div><p class="sub" style="margin:0">An optional, private feature to help plan supplies and notice changes in energy, mood and sleep. This is fictional sample information. It is not real personal or medical data, and it gives no medical advice.</p>`;
 }
 
-// Calm breathing guide.
 function toggleBreath(){
-  breathing=!breathing;
-  clearInterval(bt);
-
-  const r=$("ring");
-  const b=$("br");
-
+  breathing=!breathing;clearInterval(bt);
+  const r=$("ring"),b=$("br");
   r.classList.toggle("go2",breathing);
-  b.textContent=breathing
-    ?"Stop breathing guide"
-    :"Start calm breathing";
-
+  b.textContent=breathing?"Stop breathing guide":"Start calm breathing";
   if(breathing){
     const t0=Date.now();
-
-    const t=()=>{
-      const p=((Date.now()-t0)/1000)%10;
-      r.textContent=p<4?"Breathe in":"Breathe out";
-    };
-
-    t();
-    bt=setInterval(t,250);
-  }else{
-    r.textContent=LAB[CREW[ci].top];
-  }
+    const t=()=>{const p=((Date.now()-t0)/1000)%10;r.textContent=p<4?"Breathe in":"Breathe out"};
+    t();bt=setInterval(t,250);
+  }else{r.textContent=LAB[CREW[ci].top]}
 }
 
-// Crew selector.
-$("crew").onclick=e=>{
-  const b=e.target.closest("button");
-  if(b){
-    ci=+b.dataset.i;
-    cycle();
-    hero();
-    live();
-  }
-};
+$("crew").onclick=e=>{const b=e.target.closest("button");if(b){ci=+b.dataset.i;cycle();hero();live()}};
+$("sims").innerHTML=Object.keys(SC).map(k=>`<button type="button" data-s="${k}">${k}</button>`).join("");
+$("sims").onclick=e=>{const s=e.target.dataset.s;if(s){CREW[ci].tgt={...CREW[ci].b,...SC[s]}}};
 
-// Scenario selector.
-$("sims").innerHTML=Object.keys(SC).map(k=>
-  `<button type="button" data-s="${k}">${k}</button>`
-).join("");
-
-$("sims").onclick=e=>{
-  const s=e.target.dataset.s;
-  if(s){
-    CREW[ci].tgt={...CREW[ci].b,...SC[s]};
-  }
-};
-
-// Start the simulated dashboard.
-tick();
-cycle();
-hero();
-live();
+tick();cycle();hero();live();
 setInterval(tick,1500);
 </script>
 </body>
