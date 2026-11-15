@@ -529,27 +529,39 @@ const SC={
 };
 
 // Illustrative indicators and demonstration thresholds.
-const M=[
-  {
-    l:"Blood pressure",u:"mmHg",sk:"sbp",
-    v:v=>v.sbp+"/"+v.dbp,
-    lv:v=>(v.sbp<80||v.dbp<50||v.sbp>160)?2:
-          (v.sbp<90||v.dbp<60||v.sbp>140)?1:0,
-    h:v=>v.sbp>140
-      ?"Your blood pressure is a little high. It may help to pause and rest."
-      :"Your blood pressure is lower than usual. Take a moment to rest.",
-    s:v=>v.sbp>140
-      ?[
-        "Pause your current task and make yourself comfortable.",
-        "Try slow breathing for two minutes using the guide.",
-        "This simulated reading will continue to update."
-      ]
-      :[
-        "Stop and rest in a comfortable position.",
-        "Follow the appropriate onboard hydration guidance.",
-        "This simulated reading will continue to update."
-      ]
-  },
+const M=[ 
+{
+  l:"Blood pressure",u:"mmHg",sk:"sbp",
+  v:v=>v.sbp+"/"+v.dbp,
+  lv:v=>(v.sbp>180||v.dbp>120)?2:
+        (v.sbp>=140||v.dbp>=90)?1:
+        (v.sbp<80||v.dbp<50)?2:
+        (v.sbp<90||v.dbp<60)?1:0,
+  h:v=>(v.sbp>180||v.dbp>120)
+    ?"Your blood pressure is extremely high. This needs immediate medical review."
+    :(v.sbp>=140||v.dbp>=90)
+    ?"Your blood pressure is higher than expected. Pause and recheck."
+    :"Your blood pressure is lower than usual. Take a moment to rest.",
+  s:v=>(v.sbp>180||v.dbp>120)
+    ?[
+      "Pause activity and rest in a safe position.",
+      "Repeat the measurement after at least one minute using a suitable validated device.",
+      "If the reading remains this high, alert the crew medical officer immediately.",
+      "Follow the onboard emergency protocol if concerning symptoms occur."
+    ]
+    :(v.sbp>=140||v.dbp>=90)
+    ?[
+      "Pause strenuous activity and rest safely.",
+      "Repeat the measurement and monitor the result.",
+      "Seek medical guidance if the reading remains high."
+    ]
+    :[
+      "Stop and rest in a comfortable position.",
+      "Follow onboard hydration and medical guidance.",
+      "Recheck the reading in 10 minutes."
+    ]
+},
+
   {
     l:"Heart rate",u:"beats/min",sk:"hr",
     v:v=>v.hr,
