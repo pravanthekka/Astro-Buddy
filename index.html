@@ -22,7 +22,7 @@ h1 small{display:block;font-size:.95rem;font-weight:400;color:var(--muted)}
 h2{font-size:1.1rem;font-weight:800;margin:0 0 10px}
 .glass{background:var(--glass);border:1px solid var(--edge);border-radius:20px;padding:20px;backdrop-filter:blur(8px);margin-bottom:16px}
 .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start}
-button{font:inherit;color:var(--ink);cursor:pointer;border-radius:999px;border:1.5px solid var(--edge);background:var(--glass);padding:8px 14px}
+button{font:inherit;color:var(--ink);cursor:pointer;border-radius:999px;border:1.5px solid var(--edge);background:var(--glass);ping:8px 14px}
 button:hover{border-color:var(--lav)}
 button:focus-visible{outline:3px solid var(--lav);outline-offset:2px}
 button[aria-pressed="true"]{background:var(--lav);color:#12163F;border-color:var(--lav);font-weight:700}
@@ -103,7 +103,8 @@ mark.fill{background:rgba(255,200,87,.18);color:var(--watch);padding:0 6px;borde
 </div>
 
 <h2 class="sechead" id="about">Project story</h2>
-<p class="lead">Team <b>The Sibling Circuit</b> · NASA Space Apps Challenge 2026 · Challenge: build health monitoring software for astronauts on long missions. <mark class="fill">Add: team member names</mark></p>
+<p class="lead">Team <b>The Sibling Circuit</b> · NASA Space Apps Challenge 2026 · Challenge: build health monitoring software for astronauts on long missions. <mark class="fill">Team members: <b>Pravanthekka GN</b> and <b>Pravarthanan GN</b>.
+</p>Team members: Pravanthekka GN and Pravarthanan GN</mark></p>
 <div class="about">
 
 <div class="glass"><h2>What we built</h2>
@@ -138,7 +139,13 @@ mark.fill{background:rgba(255,200,87,.18);color:var(--watch);padding:0 6px;borde
 <li><b>Define.</b> Long-duration crews need to understand and act on their health without extra work or panic.</li>
 <li><b>Ideate.</b> We first imagined an app where astronauts enter their numbers. Then we realised they would not have time, so we chose automatic sensing with quiet, calm guidance.</li>
 <li><b>Prototype.</b> This page, with a simulated band.</li>
-<li><b>Test.</b> <mark class="fill">Add: who tried it, what confused them, and what you changed</mark></li></ol></div>
+<li><b>Test.</b> <mark class="fill">Test. Prototype testing
+
+We explored the prototype using five simulated health scenarios: a normal day, low blood pressure, breathing difficulty, low glucose and elevated radiation exposure.
+
+For each scenario, we checked how the dashboard changes its status, communicates the concern and presents suggested next steps.
+
+This is an initial functional demonstration, not a clinical trial or astronaut user study. The next stage would be to conduct usability testing with users and seek feedback from medical and space-health experts.</mark></li></ol></div>
 
 <div class="glass"><h2>Validity: sources and limits</h2>
 <p><b>NASA data and resources used:</b></p>
@@ -159,7 +166,7 @@ mark.fill{background:rgba(255,200,87,.18);color:var(--watch);padding:0 6px;borde
 <div class="glass wide"><h2>Tools and AI use</h2>
 <p>Built with HTML, CSS and JavaScript on GitHub Pages. Fonts: Nunito from Google Fonts. The idea, the calm-guidance approach, the automatic-band direction and the design-thinking process are the team’s own. Claude (an AI assistant from Anthropic) helped write and explain parts of the code and wording. No NASA logos or branding are used, and no images of people appear on this page.</p></div>
 </div>
-<p class="foot">Prototype for the NASA Space Apps Challenge. All readings are a <b>simulated stream</b> from fictional crew, because no real astronaut data is used. Ranges are illustrative and would be replaced with NASA-approved medical ranges. Some signals, such as cuffless blood pressure, are still hard to measure on the wrist, so a real system would use the best available sensor for each one. This is decision support, not a doctor: serious or unclear signs are always passed to the crew medical officer and flight surgeons. Parts of this code were written with AI assistance (Claude).</p>
+<p class="foot">Prototype for the NASA Space Apps Challenge. All readings are a <b>simulated stream</b> from fictional crew, because no real astronaut data is used. Ranges are illustrative and would be replaced with NASA-approved medical ranges. Some signals, such as cuffless blood pressure, are still hard to measure on the wrist, so a real system would use the best available sensor for each one. This is decision support, not a doctor: serious or unclear signs are always passed to the crew medical officer and flight surgeons.</p>
 </div>
 <script>
 /* ===== STEP 3: LOGIC ===== */
